@@ -120,10 +120,14 @@ export default class FormSinhVien extends Component {
 
     // Push
     if (!isExist) {
+      let emptyValue = { masv: '', hoten: '', phone: '', email: '' }
       arrSinhVien.push({ ...this.state.studentInformation });
       this.setState({
         studentArr: arrSinhVien,
-        studentArr2: arrSinhVien
+        studentArr2: arrSinhVien,
+        studentInformation: emptyValue,
+        valid: false,
+        validClear: false
       })
     }
     else {
@@ -203,9 +207,9 @@ export default class FormSinhVien extends Component {
 
   handleSearchResult = () => {
     let arrStudent = [...this.state.studentArr];
-    let stringSearch = _.lowerCase(this.state.nameSearch);
+    let stringSearch = _.lowerCase(this.state.nameSearch).trim();
     let searchedArray = _.filter(arrStudent, (student) => {
-      return _.includes(_.lowerCase(student.hoten), stringSearch)
+      return _.includes(_.lowerCase(student.hoten).trim(), stringSearch)
     });
     this.setState({
       studentArr: searchedArray
